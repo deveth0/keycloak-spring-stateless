@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+
+  keycloak:
+    image: jboss/keycloak:14.0.0
+    environment:
+      - DB_VENDOR=h2
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - PROXY_ADDRESS_FORWARDING=true
+    expose:
+      - 8888
+    command:
+      - "-b 0.0.0.0"
+      - "-Dkeycloak.import=/opt/jboss/keycloak/foo-dev-realm.json"
+    ports:
+      - "8888:8080"
+    volumes:
+      - ./config/foo-dev-realm.json:/opt/jboss/keycloak/foo-dev-realm.json
